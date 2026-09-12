@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-paper: #F7F6F3;
+  --color-ink: #111110;
+  --color-muted: #6E6B66;
+  --color-line: #E4E1DA;
+  --color-accent: #FF4D00;
+}
+
+:root {
+  --paper: #F7F6F3;
+  --ink: #111110;
+  --muted: #6E6B66;
+  --line: #E4E1DA;
+  --accent: #FF4D00;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--paper);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Base typography refinements */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Hairline borders */
+.border-hairline {
+  border-color: var(--line);
+}
+
+.border-hairline-dark {
+  border-color: rgba(247, 246, 243, 0.14);
+}
+
+/* Marquee infinite animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Wireframe Cube for Lab */
+.cube-wrap {
+  perspective: 800px;
+}
+
+.cube {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  transform-style: preserve-3d;
+  animation: rotateCube 12s linear infinite;
+}
+
+.cube-face {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border: 1px solid var(--accent);
+  background: rgba(255, 77, 0, 0.04);
+}
+
+.face-front  { transform: translateZ(35px); }
+.face-back   { transform: rotateY(180deg) translateZ(35px); }
+.face-right  { transform: rotateY(90deg) translateZ(35px); }
+.face-left   { transform: rotateY(-90deg) translateZ(35px); }
+.face-top    { transform: rotateX(90deg) translateZ(35px); }
+.face-bottom { transform: rotateX(-90deg) translateZ(35px); }
+
+@keyframes rotateCube {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
+}
+
+/* Pulsing Gradient Orb */
+@keyframes pulseOrb {
+  0%, 100% {
+    transform: scale(0.92);
+    filter: blur(12px) hue-rotate(0deg);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.15);
+    filter: blur(18px) hue-rotate(25deg);
+    opacity: 1;
+  }
+}
+
+.animate-orb {
+  animation: pulseOrb 4s ease-in-out infinite;
+}
+
+/* Typing terminal blink */
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blinkCursor 0.9s infinite;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .cube,
+  .animate-orb,
+  .animate-blink {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
